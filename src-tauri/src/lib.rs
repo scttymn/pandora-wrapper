@@ -41,7 +41,7 @@ const INIT_SCRIPT_TEMPLATE: &str = r#"
   // Conditional back nav item. Inserted as the first child of Pandora's
   // top-nav (.NavHorizontal) so it inherits the existing styling.
   // Hidden on top-level routes, visible everywhere else.
-  // Add paths to this array to suppress the back button there.
+  // Entries are either exact paths or `prefix/*` to match everything beneath.
   const TOP_LEVEL_ROUTES = [
     '/',
     '/station',
@@ -55,10 +55,18 @@ const INIT_SCRIPT_TEMPLATE: &str = r#"
     '/collection/podcasts',
     '/collection/episodes',
     '/browse',
+    '/artist/play/*',
+    '/search/*',
   ];
   const isTopLevel = () => {
     const p = window.location.pathname.replace(/\/+$/, '') || '/';
-    return TOP_LEVEL_ROUTES.includes(p);
+    return TOP_LEVEL_ROUTES.some((route) => {
+      if (route.endsWith('/*')) {
+        const prefix = route.slice(0, -2);
+        return p === prefix || p.startsWith(prefix + '/');
+      }
+      return p === route;
+    });
   };
 
   const backLi = document.createElement('li');
