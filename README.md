@@ -11,8 +11,21 @@ An unofficial desktop wrapper around [pandora.com](https://www.pandora.com) buil
 - Native window chrome on macOS (transparent title bar, traffic lights overlaid on Pandora's nav).
 - Custom CSS injected to clean up the chrome (hidden scrollbars, top bar layout adjustments, splash screen suppressed).
 - Conditional in-app back button that only appears on non-top-level routes.
+- Keyboard shortcuts for playback and feedback (see below).
 - Drag the window from the top nav region (everywhere except interactive elements).
 - No telemetry. No bundled tracking. The app is just a window pointed at `https://www.pandora.com/`.
+
+## Keyboard shortcuts
+
+| Key | Action |
+| --- | --- |
+| Media Play/Pause (`F8`) | Play / pause the current track |
+| Media Next (`F9`) | Skip to the next track |
+| Media Previous (`F7`) | Restart the current track (Pandora's "Replay") |
+| `↑` | Thumbs up |
+| `↓` | Thumbs down |
+
+Arrow shortcuts are ignored while typing in inputs or with modifier keys held.
 
 ## Install
 
