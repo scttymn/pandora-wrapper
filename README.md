@@ -41,13 +41,19 @@ Pre-built binaries are published as [GitHub Releases](https://github.com/scttymn
 
 ### macOS first launch
 
-Because the app is unsigned, macOS Gatekeeper will block it on first launch. After installing, run:
+Because the app is unsigned, macOS Gatekeeper will block it on first launch — typically with a "Pandora.app is damaged and can't be opened" message. After installing, run:
 
 ```sh
-xattr -dr com.apple.quarantine /Applications/Pandora.app
+xattr -cr /Applications/Pandora.app
 ```
 
-Then launch normally.
+This clears the extended attributes that flag the app as quarantined / unsigned. Then launch normally.
+
+If you still see the "damaged" error after that (rare on recent macOS), ad-hoc sign the bundle locally:
+
+```sh
+codesign --force --deep --sign - /Applications/Pandora.app
+```
 
 ## Build from source
 
