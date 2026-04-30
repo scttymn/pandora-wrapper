@@ -56,6 +56,7 @@ const INIT_SCRIPT_TEMPLATE: &str = r#"
     '/collection/episodes',
     '/browse',
     '/artist/play/*',
+    '/station/play/*',
     '/search/*',
   ];
   const isTopLevel = () => {
