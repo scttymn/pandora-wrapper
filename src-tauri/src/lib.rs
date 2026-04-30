@@ -119,6 +119,55 @@ const INIT_SCRIPT_TEMPLATE: &str = r#"
   history.pushState = wrapHistory(history.pushState);
   history.replaceState = wrapHistory(history.replaceState);
   window.addEventListener('popstate', updateBackVisibility);
+
+  // Media key support — Pandora wires up play/pause handlers but not
+  // next/previous track. Register our own that click Pandora's skip and
+  // replay buttons.
+  const clickByAria = (...patterns) => {
+    for (const p of patterns) {
+      const sel = '[aria-label="' + p + '"], [aria-label*="' + p + '" i]';
+      const btn = document.querySelector(sel);
+      if (btn && !btn.disabled) {
+        btn.click();
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const setupMediaKeys = () => {
+    if (!('mediaSession' in navigator)) return;
+    try {
+      navigator.mediaSession.setActionHandler('nexttrack', () => {
+        clickByAria('Skip', 'Next');
+      });
+      navigator.mediaSession.setActionHandler('previoustrack', () => {
+        clickByAria('Replay', 'Previous');
+      });
+    } catch (e) {
+      // Some browsers throw if an action isn't supported.
+    }
+  };
+
+  setupMediaKeys();
+  // Re-register periodically in case Pandora overwrites our handlers.
+  setInterval(setupMediaKeys, 5000);
+
+  // Arrow key shortcuts: ↑ thumbs up, ↓ thumbs down. Skipped when typing.
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') return;
+    const t = e.target;
+    if (!t) return;
+    const tag = (t.tagName || '').toUpperCase();
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || t.isContentEditable) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    e.preventDefault();
+    if (e.key === 'ArrowUp') {
+      clickByAria('Thumb up', 'Thumbs up', 'Like');
+    } else {
+      clickByAria('Thumb down', 'Thumbs down', 'Dislike');
+    }
+  }, true);
 })();
 "#;
 
