@@ -1,0 +1,49 @@
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+* {
+  scrollbar-width: none !important;
+}
+
+.Container__splash {
+  display: none !important;
+}
+
+/* Logged-out / pre-hydration: pad the body so traffic lights don't overlap
+   the marketing nav. Once the logged-in app shell mounts (.region-topBar),
+   this rule yields and the topBar-specific rules below handle layout. */
+.AnonHeader {
+  height: 9rem !important;
+}
+
+.AnonHeader__logo,
+.AnonHeader__anonButtons,
+.AnonHeader__anonBurger {
+  padding-top: 28px !important;
+}
+
+.region-topBar {
+  height: 9.4rem !important;
+}
+
+.NavPrimary,
+.SearchModalT3,
+.NavSecondary {
+  top: 28px !important;
+}
+
+.MiniBar {
+  top: 9.4rem !important;
+}
+
+.BackstageLargeHeader {
+  margin-top: 9.4rem !important;
+}
+
+/* Wrapper-injected back nav item. Inherits .NavHorizontal__item styling
+   from Pandora. */
+[data-pandora-wrapper-back] .NavHorizontal__item__link {
+  cursor: pointer;
+}
