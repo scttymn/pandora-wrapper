@@ -189,7 +189,7 @@ pub fn run() {
             )
             .title("Pandora")
             .inner_size(1200.0, 820.0)
-            .min_inner_size(900.0, 600.0)
+            .min_inner_size(1000.0, 600.0)
             .background_color(Color(255, 255, 255, 255))
             .initialization_script(&init_script);
 
