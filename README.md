@@ -1,6 +1,6 @@
 # Pandora Wrapper
 
-<img width="1213" height="965" alt="Screenshot 2026-04-30 at 6 24 32 PM" src="https://github.com/user-attachments/assets/a4a34087-c30f-48fc-bbfc-a1cca6659b54" />
+<img width="1213" height="965" alt="Screenshot 2026-04-30 at 6 24 32 PM" src="docs/screenshot.png" />
 
 An unofficial desktop wrapper around [pandora.com](https://www.pandora.com) built with [Tauri](https://tauri.app). Runs Pandora's web player as a native-feeling app on macOS, Windows, and Linux.
 
