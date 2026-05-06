@@ -27,35 +27,9 @@ An unofficial desktop wrapper around [pandora.com](https://www.pandora.com) buil
 
 Arrow shortcuts are ignored while typing in inputs or with modifier keys held.
 
-## Install
-
-Pre-built binaries are published as [GitHub Releases](https://github.com/scttymn/pandora-wrapper/releases). Download the artifact for your platform:
-
-| Platform | Artifact |
-| --- | --- |
-| macOS (Apple Silicon) | `Pandora_<version>_aarch64.dmg` |
-| macOS (Intel) | `Pandora_<version>_x64.dmg` |
-| Windows | `Pandora_<version>_x64-setup.exe` or `Pandora_<version>_x64_en-US.msi` |
-| Linux (Debian/Ubuntu) | `pandora-wrapper_<version>_amd64.deb` |
-| Linux (other) | `pandora-wrapper_<version>_amd64.AppImage` |
-
-### macOS first launch
-
-Because the app is unsigned, macOS Gatekeeper will block it on first launch — typically with a "Pandora.app is damaged and can't be opened" message. After installing, run:
-
-```sh
-xattr -cr /Applications/Pandora.app
-```
-
-This clears the extended attributes that flag the app as quarantined / unsigned. Then launch normally.
-
-If you still see the "damaged" error after that (rare on recent macOS), ad-hoc sign the bundle locally:
-
-```sh
-codesign --force --deep --sign - /Applications/Pandora.app
-```
-
 ## Build from source
+
+No pre-built binaries are distributed — build it yourself.
 
 You'll need:
 
@@ -64,18 +38,32 @@ You'll need:
 - Platform-specific build prerequisites — see [Tauri's prerequisites guide](https://v2.tauri.app/start/prerequisites/)
 
 ```sh
-git clone git@github.com:scttymn/pandora-wrapper.git
+git clone https://git.svnmns.com/scttymn/pandora-wrapper.git
 cd pandora-wrapper
 npm install
 npm run tauri build
 ```
 
-Output lands in `src-tauri/target/release/bundle/`.
+Output lands in `src-tauri/target/release/bundle/` — `.dmg` on macOS, `.deb`/`.AppImage` on Linux.
 
 For development with hot-reload of the injected CSS/JS:
 
 ```sh
 npm run tauri dev
+```
+
+### macOS first launch
+
+Locally-built apps are unsigned, so macOS Gatekeeper will block them on first launch — typically with a "Pandora.app is damaged and can't be opened" message. After installing the `.dmg`, run:
+
+```sh
+xattr -cr /Applications/Pandora.app
+```
+
+This clears the quarantine attributes. If you still see the "damaged" error after that (rare on recent macOS), ad-hoc sign the bundle locally:
+
+```sh
+codesign --force --deep --sign - /Applications/Pandora.app
 ```
 
 ## Customizing the injected CSS
