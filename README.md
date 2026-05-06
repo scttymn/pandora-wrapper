@@ -52,20 +52,6 @@ For development with hot-reload of the injected CSS/JS:
 npm run tauri dev
 ```
 
-### macOS first launch
-
-Locally-built apps are unsigned, so macOS Gatekeeper will block them on first launch — typically with a "Pandora.app is damaged and can't be opened" message. After installing the `.dmg`, run:
-
-```sh
-xattr -cr /Applications/Pandora.app
-```
-
-This clears the quarantine attributes. If you still see the "damaged" error after that (rare on recent macOS), ad-hoc sign the bundle locally:
-
-```sh
-codesign --force --deep --sign - /Applications/Pandora.app
-```
-
 ## Customizing the injected CSS
 
 All visual tweaks live in [`src-tauri/src/wrapper.css`](src-tauri/src/wrapper.css). Editing this file triggers a Cargo rebuild on the next `tauri dev` start because it's pulled in via `include_str!`.
