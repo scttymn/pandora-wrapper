@@ -32,9 +32,22 @@ Playback and feedback shortcuts target the bottom player, including while sessio
 
 Use Tab or Shift+Tab to reach Back. Its appearance stays the same when focused. Pandora also provides its own playback shortcuts, including Space for play/pause when focus is outside a control.
 
-## Build from source
+## Install and update
 
-No pre-built binaries are distributed — build it yourself.
+Download an installer from [GitHub Releases](https://github.com/scttymn/pandora-wrapper/releases/latest):
+
+| Platform | Download |
+| --- | --- |
+| macOS, Apple Silicon | `aarch64.dmg` |
+| macOS, Intel | `x64.dmg` |
+| Windows | `.msi` or setup `.exe` |
+| Linux | `.AppImage`, `.deb`, or `.rpm` |
+
+Updates are installed manually; the wrapper has no automatic updater. Quit Pandora before installing a newer release.
+
+On macOS, open the disk image and drag Pandora into Applications, choosing Replace if prompted. Eject the disk image, then launch Pandora from Applications. The downloaded macOS apps use ad-hoc signing and are not Apple-notarized, so macOS may require approval in Privacy & Security before opening.
+
+## Build from source
 
 You'll need:
 
@@ -60,7 +73,7 @@ Output lands in `src-tauri/target/release/bundle/` — `.app`/`.dmg` on macOS, W
 3. Drag Pandora into Applications and choose Replace if prompted.
 4. Eject the disk image and launch Pandora from Applications.
 
-The disk image filename includes the version number. Updates are installed manually; the wrapper has no automatic updater.
+The disk image filename includes the version number.
 
 ## Development
 
@@ -90,6 +103,16 @@ The regression tests cover shortcut targeting, unavailable controls, typing and 
 Live checks on macOS covered F7/F8/F9, arrow feedback, typing and modifier exclusions, holding Up, and Back activation with Enter and Space. Physical hardware media-key events and Windows/Linux behavior still need manual verification.
 
 When testing against a real Pandora account, note the existing rating before using arrow shortcuts and restore it afterward. If thumbs-down skips a song, remove the test dislike from that song in session history. Preserve any rating that was present before the test.
+
+### Publishing a release
+
+1. Update the version in `package.json`, `package-lock.json`, `src-tauri/Cargo.toml`, `src-tauri/Cargo.lock`, and `src-tauri/tauri.conf.json`.
+2. Add release notes in `docs/releases/vX.Y.Z.md`, then commit and push the changes.
+3. Create and push the matching tag, for example `git tag -a v0.1.4 -m "Release v0.1.4"` and `git push origin v0.1.4`.
+4. The Release workflow checks the version, notes, tests, and Rust formatting, then builds Apple Silicon and Intel macOS installers plus Windows and Linux packages.
+5. Wait for every build to succeed, review the draft release and its assets, then publish it in GitHub Releases.
+
+To retry a release from the Actions page, run the Release workflow with the existing version tag. Keep the release as a draft until all builds finish; publishing happens separately.
 
 ## License
 
