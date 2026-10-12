@@ -14,31 +14,31 @@
 /* Logged-out / pre-hydration: pad the body so traffic lights don't overlap
    the marketing nav. Once the logged-in app shell mounts (.region-topBar),
    this rule yields and the topBar-specific rules below handle layout. */
-.AnonHeader {
+html[data-pandora-wrapper-platform="macos"] .AnonHeader {
   height: 9rem !important;
 }
 
-.AnonHeader__logo,
-.AnonHeader__anonButtons,
-.AnonHeader__anonBurger {
+html[data-pandora-wrapper-platform="macos"] .AnonHeader__logo,
+html[data-pandora-wrapper-platform="macos"] .AnonHeader__anonButtons,
+html[data-pandora-wrapper-platform="macos"] .AnonHeader__anonBurger {
   padding-top: 28px !important;
 }
 
-.region-topBar {
+html[data-pandora-wrapper-platform="macos"] .region-topBar {
   height: 9.4rem !important;
 }
 
-.NavPrimary,
-.SearchModalT3,
-.NavSecondary {
+html[data-pandora-wrapper-platform="macos"] .NavPrimary,
+html[data-pandora-wrapper-platform="macos"] .SearchModalT3,
+html[data-pandora-wrapper-platform="macos"] .NavSecondary {
   top: 28px !important;
 }
 
-.MiniBar {
+html[data-pandora-wrapper-platform="macos"] .MiniBar {
   top: 9.4rem !important;
 }
 
-.BackstageLargeHeader {
+html[data-pandora-wrapper-platform="macos"] .BackstageLargeHeader {
   margin-top: 9.4rem !important;
 }
 
@@ -46,4 +46,26 @@
    from Pandora. */
 [data-pandora-wrapper-back] .NavHorizontal__item__link {
   cursor: pointer;
+}
+
+[data-pandora-wrapper-back] button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 1;
+}
+
+[data-pandora-wrapper-back] button:focus,
+[data-pandora-wrapper-back] button:focus-visible {
+  outline: none;
+  box-shadow: none;
 }

@@ -5,12 +5,11 @@
   "windows": ["main"],
   "remote": {
     "urls": [
-      "https://*.pandora.com/*",
+      "https://www.pandora.com/*",
       "https://pandora.com/*"
     ]
   },
   "permissions": [
-    "core:default",
     "core:window:allow-start-dragging",
     "core:window:allow-internal-toggle-maximize"
   ]
